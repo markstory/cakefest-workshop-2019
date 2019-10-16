@@ -93,4 +93,11 @@ class EmailsTable extends Table
 
         return $rules;
     }
+
+    public function findForTicket(Query $query, array $options): Query
+    {
+        return $query
+            ->contain(['Tickets'])
+            ->where(['Emails.ticket_id' => $options['ticketId']]);
+    }
 }
