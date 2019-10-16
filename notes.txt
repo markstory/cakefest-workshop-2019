@@ -1,0 +1,8 @@
+Advanced Routing
+----------------
+
+* Use a scope() to make api endpoints.
+* Use resources() to add Tickets and nested Emails
+* Show that parameters are not being passed, fix that.
+* Add a finder for finding emails by ticket.
+* Update view and delete endpoints.
