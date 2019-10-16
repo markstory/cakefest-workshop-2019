@@ -35,7 +35,7 @@ class EmailsTable extends Table
         parent::initialize($config);
 
         $this->setTable('emails');
-        $this->setDisplayField('id');
+        $this->setDisplayField('subject');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Tickets', [

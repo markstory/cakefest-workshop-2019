@@ -37,7 +37,7 @@ class TicketsTable extends Table
         parent::initialize($config);
 
         $this->setTable('tickets');
-        $this->setDisplayField('id');
+        $this->setDisplayField('subject');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Customers', [
