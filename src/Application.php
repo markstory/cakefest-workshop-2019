@@ -16,6 +16,8 @@ declare(strict_types=1);
  */
 namespace App;
 
+use App\Middleware\RateLimitMiddleware;
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
@@ -79,7 +81,8 @@ class Application extends BaseApplication
             // creating the middleware instance specify the cache config name by
             // using it's second constructor argument:
             // `new RoutingMiddleware($this, '_cake_routes_')`
-            ->add(new RoutingMiddleware($this));
+            ->add(new RoutingMiddleware($this))
+            ->add(new RateLimitMiddleware(10, Cache::pool('ratelimit')));
 
         return $middlewareQueue;
     }

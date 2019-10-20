@@ -6,3 +6,12 @@ Advanced Routing
 * Show that parameters are not being passed, fix that.
 * Add a finder for finding emails by ticket.
 * Update view and delete endpoints.
+
+Middleware
+----------
+
+* Build a simple rate limit middleware for our API.
+* Use bake to get started.
+* Use cache for storing counter.
+* Simple time + ip based implementation. Later on we'll make it better.
+* `curl http://localhost:8765/ -v 2>&1 | grep X-Rate-Limit` check rate limit in curl.
