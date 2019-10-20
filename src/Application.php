@@ -17,6 +17,10 @@ declare(strict_types=1);
 namespace App;
 
 use App\Middleware\RateLimitMiddleware;
+use Authentication\AuthenticationService;
+use Authentication\AuthenticationServiceInterface;
+use Authentication\AuthenticationServiceProviderInterface;
+use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
@@ -25,6 +29,7 @@ use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Application setup class.
@@ -32,7 +37,9 @@ use Cake\Routing\Middleware\RoutingMiddleware;
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-class Application extends BaseApplication
+class Application
+    extends BaseApplication
+    implements AuthenticationServiceProviderInterface
 {
     /**
      * {@inheritDoc}
@@ -82,9 +89,43 @@ class Application extends BaseApplication
             // using it's second constructor argument:
             // `new RoutingMiddleware($this, '_cake_routes_')`
             ->add(new RoutingMiddleware($this))
-            ->add(new RateLimitMiddleware(10, Cache::pool('ratelimit')));
+            ->add(new RateLimitMiddleware(100, Cache::pool('ratelimit')))
+            ->add(new AuthenticationMiddleware($this));
 
         return $middlewareQueue;
+    }
+
+    public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
+    {
+        $service = new AuthenticationService();
+        // API only authentication 
+        if ($request->getParam('prefix') === 'Api') {
+            $service->loadIdentifier('Authentication.Token', [
+                'resolver' => [
+                    'className' => 'Authentication.Orm',
+                ],
+                'tokenField' => 'api_token',
+            ]);
+            $service->loadAuthenticator('Authentication.Token', [
+                'header' => 'Authorization',
+                'queryParam' => 'token',
+                'tokenPrefix' => 'Token',
+            ]);
+
+            return $service;
+        }
+
+        // Everything that isn't the api
+        $service->loadIdentifier('Authentication.Password', [
+            'resolver' => [
+                'className' => 'Authentication.Orm',
+            ],
+            'fields' => ['username', 'password']
+        ]);
+        $service->loadAuthenticator('Authentication.Form');
+        $service->loadAuthenticator('Authentication.Session');
+
+        return $service;
     }
 
     /**

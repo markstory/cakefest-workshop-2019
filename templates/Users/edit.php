@@ -24,7 +24,13 @@
                 <?php
                     echo $this->Form->control('username');
                     echo $this->Form->control('email');
-                    echo $this->Form->control('password');
+                    echo $this->Form->control('password', [
+                        'value' => '',
+                        'id' => 'user-password'
+                    ]);
+                ?>
+                <div><a href="#" id="password-toggle">Toggle password</a></div>
+                <?php
                     echo $this->Form->control('first_name');
                     echo $this->Form->control('last_name');
                     echo $this->Form->control('activation_date', ['empty' => true]);
@@ -38,3 +44,18 @@
         </div>
     </div>
 </div>
+
+<script>
+function togglePassword(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    var el = document.querySelector('#user-password').parentNode;
+    if (el.style.display != 'none') {
+        el.style.display = 'none';
+    } else {
+        el.style.display = 'block';
+    }
+}
+document.querySelector('#user-password').parentNode.style.display = 'none';
+document.querySelector('#password-toggle').addEventListener('click', togglePassword);
+</script>

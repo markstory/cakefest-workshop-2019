@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\UsersController;
+use App\Test\TestCase\IntegrationTestHelperTrait;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
@@ -15,6 +15,7 @@ use Cake\TestSuite\TestCase;
 class UsersControllerTest extends TestCase
 {
     use IntegrationTestTrait;
+    use IntegrationTestHelperTrait;
 
     /**
      * Fixtures
@@ -25,56 +26,27 @@ class UsersControllerTest extends TestCase
         'app.Users',
         'app.Tickets',
         'app.Customers',
-        'app.CustomersUsers',
     ];
 
-    /**
-     * Test index method
-     *
-     * @return void
-     */
-    public function testIndex()
+    public function testLogin()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->enableCsrfToken();
+        $this->post('/users/login', [
+            'username' => 'admin',
+            'password' => 'hunter12'
+        ]);
+        $this->assertRedirect('/tickets');
+        $this->assertSession('admin', 'Auth.username');
     }
 
-    /**
-     * Test view method
-     *
-     * @return void
-     */
-    public function testView()
+    public function testLogout()
     {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
+        $this->enableCsrfToken();
+        $this->login('admin');
+        $this->post('/users/logout');
 
-    /**
-     * Test add method
-     *
-     * @return void
-     */
-    public function testAdd()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test edit method
-     *
-     * @return void
-     */
-    public function testEdit()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test delete method
-     *
-     * @return void
-     */
-    public function testDelete()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->assertRedirect('/users/login');
+        $session = $this->_requestSession;
+        $this->assertNull($session->read('Auth.username'));
     }
 }

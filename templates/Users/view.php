@@ -27,10 +27,6 @@
                     <td><?= h($user->email) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Password') ?></th>
-                    <td><?= h($user->password) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('First Name') ?></th>
                     <td><?= h($user->first_name) ?></td>
                 </tr>
@@ -43,12 +39,12 @@
                     <td><?= h($user->role) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($user->id) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Activation Date') ?></th>
                     <td><?= h($user->activation_date) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('API Token') ?></th>
+                    <td><?= h($user->api_token) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Created') ?></th>

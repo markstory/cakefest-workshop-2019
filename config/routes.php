@@ -1,4 +1,5 @@
 <?php
+
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
@@ -22,6 +23,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
     ]));
 
     $builder->applyMiddleware('csrf');
+
     $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $builder->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $builder->fallbacks();

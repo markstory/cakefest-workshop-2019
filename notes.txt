@@ -15,3 +15,34 @@ Middleware
 * Use cache for storing counter.
 * Simple time + ip based implementation. Later on we'll make it better.
 * `curl http://localhost:8765/ -v 2>&1 | grep X-Rate-Limit` check rate limit in curl.
+* Apply middleware to only api scope.
+
+* Questions? Other things you want to see?
+
+
+Authentication
+---------------
+
+* Add package, composer up.
+* Restart vim
+* Add middleware, implement serviceprovider interface.
+* Implement getAuthenticationService() method
+* Add Password Identifier, with Orm Resolver.
+* Add Form & Session Authenticator
+* Update user entity to hashing passwords. Talk about tradeoff with table or entity.
+* Remove password from templates.
+* Add toggling to password on edit in javascript.
+* Implement login action.
+* Lock out unauthenticated requests on users controller.
+* Require logged in users across the entire app, move component up to appcontroller.
+* Implement logout
+* We now have session based auth working across the application, but our API
+  shouldn't use sessions. Instead we want to use API tokens.
+* bin/cake migration create AddApiTokenToUsers
+* Create migration
+* Generate api_token on users create.
+* Use bin/cake console to update existing user.
+* Use request to build different services!
+* Use token in querystring, use token in header.
+
+* Questions? Other things you want to see?
