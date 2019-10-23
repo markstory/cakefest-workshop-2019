@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Authentication\PasswordHasher\DefaultPasswordHasher;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\IdentityInterface as AuthorizationIdentity;
+use Authentication\IdentityInterface as AuthenticationIdentity;
 use Cake\ORM\Entity;
 
 /**
@@ -24,7 +27,9 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Ticket[] $tickets
  * @property \App\Model\Entity\Customer[] $customers
  */
-class User extends Entity
+class User
+    extends Entity
+    implements AuthorizationIdentity, AuthenticationIdentity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -50,6 +55,9 @@ class User extends Entity
         'customers' => true,
     ];
 
+    /** @var \Authorization\AuthorizationServiceInterface */
+    protected $authorization;
+
     /**
      * Fields that are excluded from JSON versions of the entity.
      *
@@ -63,5 +71,35 @@ class User extends Entity
     {
         $hasher = new DefaultPasswordHasher();
         return $hasher->hash($password);
+    }
+
+    public function can(string $action, $resource): bool
+    {
+        return $this->authorization->can($this, $action, $resource);
+    }
+
+    public function canResult(string $action, $resource): \Authorization\Policy\ResultInterface
+    {
+        return $this->authorization->canResult($this, $action, $resource);
+    }
+
+    public function applyScope(string $action, $resource)
+    {
+        return $this->authorization->applyScope($this, $action, $resource);
+    }
+
+    public function getIdentifier()
+    {
+        return $this->id;
+    }
+
+    public function getOriginalData()
+    {
+        return $this;
+    }
+
+    public function setAuthorization(AuthorizationServiceInterface $service)
+    {
+        $this->authorization = $service;
     }
 }

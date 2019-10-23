@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "262fc5e2687cedb834063017e9ca9a4b",
+    "content-hash": "c8b6f4e2e4b4776672c6ac763bd93ef7",
     "packages": [
         {
             "name": "aura/intl",
@@ -53,17 +53,73 @@
             "time": "2017-01-20T05:00:11+00:00"
         },
         {
+            "name": "cakephp/authorization",
+            "version": "2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/authorization.git",
+                "reference": "d0f0ef151fcb9864d1a5191483b9a4545e683e44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/authorization/zipball/d0f0ef151fcb9864d1a5191483b9a4545e683e44",
+                "reference": "d0f0ef151fcb9864d1a5191483b9a4545e683e44",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "4.x-dev as 4.0.0",
+                "php": ">=7.2",
+                "psr/http-client": "^1.0",
+                "psr/http-message": "^1.0",
+                "psr/http-server-handler": "^1.0",
+                "psr/http-server-middleware": "^1.0"
+            },
+            "require-dev": {
+                "cakephp/authentication": "2.x-dev",
+                "cakephp/bake": "4.x-dev as 2.0.0",
+                "cakephp/cakephp-codesniffer": "dev-next",
+                "phpunit/phpunit": "^8.0"
+            },
+            "suggest": {
+                "cakephp/orm": "To use \"OrmResolver\" (Not needed separately if using full CakePHP framework)."
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Authorization\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/authorization/graphs/contributors"
+                }
+            ],
+            "description": "Authorization abstraction layer plugin for CakePHP",
+            "keywords": [
+                "access",
+                "auth",
+                "authorization",
+                "cakephp"
+            ],
+            "time": "2019-07-19T02:26:00+00:00"
+        },
+        {
             "name": "cakephp/cakephp",
             "version": "4.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "0f9df08b776e49e109c895d29a0bea9fc68b9cfe"
+                "reference": "4cdd364ebe47e93380aadae6fdec834eaac27d74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/0f9df08b776e49e109c895d29a0bea9fc68b9cfe",
-                "reference": "0f9df08b776e49e109c895d29a0bea9fc68b9cfe",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/4cdd364ebe47e93380aadae6fdec834eaac27d74",
+                "reference": "4cdd364ebe47e93380aadae6fdec834eaac27d74",
                 "shasum": ""
             },
             "require": {
@@ -143,7 +199,7 @@
                 "rapid-development",
                 "validation"
             ],
-            "time": "2019-10-15T23:32:34+00:00"
+            "time": "2019-10-19T04:18:07+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -938,6 +994,67 @@
             "time": "2017-01-10T22:04:15+00:00"
         },
         {
+            "name": "cakephp/authentication",
+            "version": "2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/authentication.git",
+                "reference": "287d30f5961d725b8470ec18b76966d7a6536f69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/authentication/zipball/287d30f5961d725b8470ec18b76966d7a6536f69",
+                "reference": "287d30f5961d725b8470ec18b76966d7a6536f69",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/core": "4.x-dev as 4.0.0",
+                "psr/http-client": "^1.0",
+                "psr/http-message": "^1.0",
+                "psr/http-server-handler": "^1.0",
+                "psr/http-server-middleware": "^1.0",
+                "zendframework/zend-diactoros": "^2.0"
+            },
+            "require-dev": {
+                "cakephp/cakephp": "4.x-dev as 4.0.0",
+                "cakephp/cakephp-codesniffer": "dev-next",
+                "firebase/php-jwt": "^5.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "suggest": {
+                "cakephp/cakephp": "Install version >=3.5.0 to use \"CookieAuthenticator\".",
+                "cakephp/orm": "To use \"OrmResolver\" (Not needed separately if using full CakePHP framework).",
+                "cakephp/utility": "Provides CakePHP security methods. Required for the JWT adapter and Legacy password hasher.",
+                "ext-ldap": "Make sure this php extension is installed and enabled on your system if you want to use the built-in LDAP adapter for \"LdapIdentifier\".",
+                "firebase/php-jwt": "If you want to use the JWT adapter add this dependency"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Authentication\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/authentication/graphs/contributors"
+                }
+            ],
+            "description": "Authentication plugin for CakePHP",
+            "homepage": "https://cakephp.org",
+            "keywords": [
+                "Authentication",
+                "auth",
+                "cakephp",
+                "middleware"
+            ],
+            "time": "2019-09-23T04:00:02+00:00"
+        },
+        {
             "name": "cakephp/bake",
             "version": "4.x-dev",
             "source": {
@@ -1097,12 +1214,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/migrations.git",
-                "reference": "92c401525ff73e3ce0e66656f0d04910bf0b4d11"
+                "reference": "fae24132c1c3b49b616114f6f7a9b198c8cb7710"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/migrations/zipball/92c401525ff73e3ce0e66656f0d04910bf0b4d11",
-                "reference": "92c401525ff73e3ce0e66656f0d04910bf0b4d11",
+                "url": "https://api.github.com/repos/cakephp/migrations/zipball/fae24132c1c3b49b616114f6f7a9b198c8cb7710",
+                "reference": "fae24132c1c3b49b616114f6f7a9b198c8cb7710",
                 "shasum": ""
             },
             "require": {
@@ -1142,7 +1259,7 @@
                 "cakephp",
                 "migrations"
             ],
-            "time": "2019-10-05T08:43:07+00:00"
+            "time": "2019-10-16T03:25:59+00:00"
         },
         {
             "name": "composer/composer",
@@ -3596,16 +3713,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.0",
+            "version": "3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "0afebf16a2e7f1e434920fa976253576151effe9"
+                "reference": "82cd0f854ceca17731d6d019c7098e3755c45060"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/0afebf16a2e7f1e434920fa976253576151effe9",
-                "reference": "0afebf16a2e7f1e434920fa976253576151effe9",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/82cd0f854ceca17731d6d019c7098e3755c45060",
+                "reference": "82cd0f854ceca17731d6d019c7098e3755c45060",
                 "shasum": ""
             },
             "require": {
@@ -3643,7 +3760,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-09-26T23:12:26+00:00"
+            "time": "2019-10-16T21:14:26+00:00"
         },
         {
             "name": "symfony/config",
@@ -4397,16 +4514,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.12.0",
+            "version": "v2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa"
+                "reference": "ddd4134af9bfc6dba4eff7c8447444ecc45b9ee5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/c7a85fd08348ca04b4d8f234f49583d9910906aa",
-                "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ddd4134af9bfc6dba4eff7c8447444ecc45b9ee5",
+                "reference": "ddd4134af9bfc6dba4eff7c8447444ecc45b9ee5",
                 "shasum": ""
             },
             "require": {
@@ -4460,7 +4577,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-10-05T16:42:38+00:00"
+            "time": "2019-10-17T07:34:53+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -4573,11 +4690,13 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "cakephp/authorization": 20,
         "cakephp/cakephp": 20,
         "cakephp/bake": 20,
         "cakephp/cakephp-codesniffer": 20,
         "cakephp/debug_kit": 20,
         "cakephp/migrations": 20,
+        "cakephp/authentication": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,

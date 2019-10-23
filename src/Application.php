@@ -21,6 +21,11 @@ use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Middleware\AuthenticationMiddleware;
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\AuthorizationServiceProviderInterface;
+use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Policy\OrmResolver;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
@@ -39,7 +44,8 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class Application
     extends BaseApplication
-    implements AuthenticationServiceProviderInterface
+    implements AuthenticationServiceProviderInterface,
+    AuthorizationServiceProviderInterface
 {
     /**
      * {@inheritDoc}
@@ -61,7 +67,8 @@ class Application
             $this->addPlugin('DebugKit');
         }
 
-        // Load more plugins here
+        $this->addPlugin('Authentication');
+        $this->addPlugin('Authorization');
     }
 
     /**
@@ -90,9 +97,22 @@ class Application
             // `new RoutingMiddleware($this, '_cake_routes_')`
             ->add(new RoutingMiddleware($this))
             ->add(new RateLimitMiddleware(100, Cache::pool('ratelimit')))
-            ->add(new AuthenticationMiddleware($this));
+            ->add(new AuthenticationMiddleware($this))
+            ->add(new AuthorizationMiddleware($this, [
+                'identityDecorator' => function ($auth, $user) {
+                    $user->setAuthorization($auth);
+
+                    return $user;
+                }
+            ]));
 
         return $middlewareQueue;
+    }
+
+    public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
+    {
+        $resolver = new OrmResolver();
+        return new AuthorizationService($resolver);
     }
 
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface

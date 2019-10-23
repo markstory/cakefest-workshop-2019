@@ -16,6 +16,7 @@ Middleware
 * Simple time + ip based implementation. Later on we'll make it better.
 * `curl http://localhost:8765/ -v 2>&1 | grep X-Rate-Limit` check rate limit in curl.
 * Apply middleware to only api scope.
+* Testing our middleware
 
 * Questions? Other things you want to see?
 
@@ -23,19 +24,13 @@ Middleware
 Authentication
 ---------------
 
-* Add package, composer up.
-* Restart vim
-* Add middleware, implement serviceprovider interface.
-* Implement getAuthenticationService() method
-* Add Password Identifier, with Orm Resolver.
-* Add Form & Session Authenticator
 * Update user entity to hashing passwords. Talk about tradeoff with table or entity.
 * Remove password from templates.
 * Add toggling to password on edit in javascript.
 * Implement login action.
+* Implement logout
 * Lock out unauthenticated requests on users controller.
 * Require logged in users across the entire app, move component up to appcontroller.
-* Implement logout
 * We now have session based auth working across the application, but our API
   shouldn't use sessions. Instead we want to use API tokens.
 * bin/cake migration create AddApiTokenToUsers
@@ -44,5 +39,54 @@ Authentication
 * Use bin/cake console to update existing user.
 * Use request to build different services!
 * Use token in querystring, use token in header.
+* Testing helpers for authentication.
+
+* Ask audience to add remember me authenticator, using Token as a model.
+* Ask audience to add tests for another controller action to ensure that users must be logged in.
 
 * Questions? Other things you want to see?
+
+
+Authorization
+-------------
+
+* Add package with `composer require cakephp/authorization:2.x-dev`
+* Explain how the plugin works
+  * Model permissions as abilities on resources.
+  * Resource model works really well when you have nouns.
+  * If you don't have nouns domain model might be lacking, or you could add new nouns.
+  * Example is dashboards or home pages.
+* Add authorization service to application
+* Add authorization component to application
+
+* Update user to implement authentication interfaces to avoid wrappers and make typehints easier.
+* Update user to implement authorization interfaces to avoid wrappers and make typehints easier.
+
+* Create first policy for tickets `bin/cake bake policy Ticket`  `bin/cake bake policy --type table Tickets`
+* Make login a public action.
+
+* Implement scopeIndex on TicketsPolicy.
+* Implement Ticket policy.
+* Update controller.
+* Update the ApiController as well.
+* Talk about how policies made that easy.
+* Add delete policy for admin users so other roles can't delete.
+* Update view to hide buttons using policies.
+
+* Ask audience to build a policy for Emails.
+
+* Write tests for policy.
+* Write integration test for controller + policy rejection.
+
+Commands
+--------
+
+* Commands are useful when you want to build cron jobs, developer tools or admin interfaces.
+  Admin interfaces that are CLI tools are nice as they don't require html/css and require ssh access.
+* This generally makes them safer than admin web interfaces.
+* Personally I use cli tools for most of my admin tasks.
+* Lets pretend that we had an SMTP outage, but agent's didn't know.
+* Lets build a redelivery tool.
+* Use bake to start.
+* Send emails by ticket_id + date.
+* Write some tests for the behavior we wrote.
