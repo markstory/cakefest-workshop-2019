@@ -4,8 +4,8 @@ Advanced Routing
 * Use a scope() to make api endpoints.
 * Use resources() to add Tickets and nested Emails
 * Show that parameters are not being passed, fix that.
-* Add a finder for finding emails by ticket.
-* Update view and delete endpoints.
+* Add a finder for finding emails by ticket, build out the basic resources a bit.
+* Update view and delete endpoints to use id parameter.
 
 Middleware
 ----------
@@ -16,9 +16,10 @@ Middleware
 * Simple time + ip based implementation. Later on we'll make it better.
 * `curl http://localhost:8765/ -v 2>&1 | grep X-Rate-Limit` check rate limit in curl.
 * Apply middleware to only api scope.
-* Testing our middleware
+* Unit test the middleware
+* Integration test our middleware in its scope.
 
-* Questions? Other things you want to see?
+* Questions? Other things you want to do?
 
 
 Authentication
@@ -26,21 +27,22 @@ Authentication
 
 * Update user entity to hashing passwords. Talk about tradeoff with table or entity.
 * Remove password from templates.
-* Add toggling to password on edit in javascript.
+* Add toggling to password on edit in javascript?
 * Implement login action.
 * Implement logout
 * Lock out unauthenticated requests on users controller.
 * Require logged in users across the entire app, move component up to appcontroller.
 * We now have session based auth working across the application, but our API
   shouldn't use sessions. Instead we want to use API tokens.
-* bin/cake migration create AddApiTokenToUsers
 * Create migration
+* bin/cake migration create AddApiTokenToUsers
 * Generate api_token on users create.
 * Use bin/cake console to update existing user.
 * Use request to build different services!
 * Use token in querystring, use token in header.
 * Testing helpers for authentication.
 
+15 min?
 * Ask audience to add remember me authenticator, using Token as a model.
 * Ask audience to add tests for another controller action to ensure that users must be logged in.
 
@@ -55,19 +57,20 @@ Authorization
   * Model permissions as abilities on resources.
   * Resource model works really well when you have nouns.
   * If you don't have nouns domain model might be lacking, or you could add new nouns.
-  * Example is dashboards or home pages.
+  * Example is dashboards or home pages. Often these have data from many places.
+  * Can authorize each sub-section or use XHR to get back to resource model.
 * Add authorization service to application
 * Add authorization component to application
 
 * Update user to implement authentication interfaces to avoid wrappers and make typehints easier.
 * Update user to implement authorization interfaces to avoid wrappers and make typehints easier.
 
-* Create first policy for tickets `bin/cake bake policy Ticket`  `bin/cake bake policy --type table Tickets`
+* Create first policy for tickets `bin/cake bake policy Ticket` && `bin/cake bake policy --type table Tickets`
 * Make login a public action.
 
 * Implement scopeIndex on TicketsPolicy.
 * Implement Ticket policy.
-* Update controller.
+* Update ticket controller to call policy.
 * Update the ApiController as well.
 * Talk about how policies made that easy.
 * Add delete policy for admin users so other roles can't delete.
