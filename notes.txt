@@ -77,6 +77,8 @@ Authorization
 
 * Write tests for policy.
 * Write integration test for controller + policy rejection.
+* Using MapResolver for non ORM resources.
+* Show how to access other models in policies to check distant relations.
 
 Commands
 --------
@@ -88,5 +90,34 @@ Commands
 * Lets pretend that we had an SMTP outage, but agent's didn't know.
 * Lets build a redelivery tool.
 * Use bake to start.
-* Send emails by ticket_id + date.
+* Send emails by ticket_id + recipient.
 * Write some tests for the behavior we wrote.
+
+* Ask audience for other tasks they build admin interfaces for, and 
+  talk about how they could be CLI tools.
+
+
+PHPStan and Psalm
+-----------------
+
+* Installation
+* Usage
+* Understanding output.
+* Creating a baseline file & ignore file
+* Incremental fixing
+
+Rector
+------
+
+* Why?
+    * Large scale refactorings can be hard to do.
+    * Instead of trying to do grep/replace rector can help
+    * Can do more than IDE refactoring.
+* Installation.
+* Look at definitions of cakephp rectors.
+* Create a mistake $io->styles('green', ['background' => 'green']);
+* Running. Autoload path, working directory are important.
+* Defining a new refactoring for application code using existing rectors.
+* Upgrade tool
+    * Useful for going from 3.x to 4.x
+    * Will continue working with rector for 4.x deprecations so they are easier.
