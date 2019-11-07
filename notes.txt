@@ -1,3 +1,9 @@
+My Setup
+--------
+- run `tmux new -t workshop` in any terminal to open a new tmux session.
+- In a second window run `tmux attach-session -t workshop` to join the tmux session in view mode.
+- Verify that both windows are working in the sessionthat we'll use locally.
+
 Advanced Routing
 ----------------
 
@@ -5,7 +11,9 @@ Advanced Routing
 * Use resources() to add Tickets and nested Emails
 * Show that parameters are not being passed, fix that.
 * Add a finder for finding emails by ticket, build out the basic resources a bit.
+
 * Update view and delete endpoints to use id parameter.
+* Get the attendees to update the other methods.
 
 Middleware
 ----------
@@ -20,6 +28,49 @@ Middleware
 * Integration test our middleware in its scope.
 
 * Questions? Other things you want to do?
+
+
+Commands
+--------
+
+* Commands are useful when you want to build cron jobs, developer tools or admin interfaces.
+  Admin interfaces that are CLI tools are nice as they don't require html/css and require ssh access.
+* This generally makes them safer than admin web interfaces.
+* Personally I use cli tools for most of my admin tasks.
+* Lets pretend that we had an SMTP outage, but agent's didn't know.
+* Lets build a redelivery tool.
+* Use bake to start.
+* Send emails by ticket_id + recipient.
+* Write some tests for the behavior we wrote.
+
+* Ask audience for other tasks they build admin interfaces for, and 
+  talk about how they could be CLI tools.
+
+
+PHPStan and Psalm
+-----------------
+
+* Installation
+* Usage
+* Understanding output.
+* Creating a baseline file & ignore file
+* Incremental fixing
+
+Rector
+------
+
+* Why?
+    * Large scale refactorings can be hard to do.
+    * Instead of trying to do grep/replace rector can help
+    * Can do more than IDE refactoring.
+* Installation.
+* Look at definitions of cakephp rectors.
+* Create a mistake $io->styles('green', ['background' => 'green']);
+* Running. Autoload path, working directory are important.
+* Defining a new refactoring for application code using existing rectors.
+* Upgrade tool
+    * Useful for going from 3.x to 4.x
+    * Will continue working with rector for 4.x deprecations so they are easier.
 
 
 Authentication
@@ -82,45 +133,3 @@ Authorization
 * Write integration test for controller + policy rejection.
 * Using MapResolver for non ORM resources.
 * Show how to access other models in policies to check distant relations.
-
-Commands
---------
-
-* Commands are useful when you want to build cron jobs, developer tools or admin interfaces.
-  Admin interfaces that are CLI tools are nice as they don't require html/css and require ssh access.
-* This generally makes them safer than admin web interfaces.
-* Personally I use cli tools for most of my admin tasks.
-* Lets pretend that we had an SMTP outage, but agent's didn't know.
-* Lets build a redelivery tool.
-* Use bake to start.
-* Send emails by ticket_id + recipient.
-* Write some tests for the behavior we wrote.
-
-* Ask audience for other tasks they build admin interfaces for, and 
-  talk about how they could be CLI tools.
-
-
-PHPStan and Psalm
------------------
-
-* Installation
-* Usage
-* Understanding output.
-* Creating a baseline file & ignore file
-* Incremental fixing
-
-Rector
-------
-
-* Why?
-    * Large scale refactorings can be hard to do.
-    * Instead of trying to do grep/replace rector can help
-    * Can do more than IDE refactoring.
-* Installation.
-* Look at definitions of cakephp rectors.
-* Create a mistake $io->styles('green', ['background' => 'green']);
-* Running. Autoload path, working directory are important.
-* Defining a new refactoring for application code using existing rectors.
-* Upgrade tool
-    * Useful for going from 3.x to 4.x
-    * Will continue working with rector for 4.x deprecations so they are easier.
