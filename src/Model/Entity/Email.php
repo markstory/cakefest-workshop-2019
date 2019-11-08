@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use Cake\Mailer\AbstractTransport;
 use Cake\ORM\Entity;
 
 /**
@@ -36,4 +37,10 @@ class Email extends Entity
         'ticket_id' => true,
         'ticket' => true,
     ];
+
+    public function redeliver(AbstractTransport $transport): void
+    {
+        // TODO do the thing!
+
+    }
 }

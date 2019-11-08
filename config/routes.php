@@ -21,6 +21,8 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+use App\Middleware\RateLimitMiddleware;
+use Cake\Cache\Cache;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
@@ -96,3 +98,12 @@ $routes->scope('/', function (RouteBuilder $builder) {
  * });
  * ```
  */
+$routes->prefix('api', function (RouteBuilder $routes) {
+    $cache = Cache::pool('ratelimit');
+    $routes->registerMiddleware('ratelimit', new RateLimitMiddleware(10, $cache));
+
+    $routes->applyMiddleware('ratelimit');
+    $routes->resources('Tickets', function(RouteBuilder $routes) {
+        $routes->resources('Emails');
+    });
+});

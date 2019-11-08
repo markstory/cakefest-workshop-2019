@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
+use Cake\Mailer\Transport\DebugTransport;
 
 /**
  * Test runner bootstrap.
@@ -25,6 +26,8 @@ use Cake\Datasource\ConnectionManager;
  * unit tests in this file.
  */
 require dirname(__DIR__) . '/vendor/autoload.php';
+
+Configure::write('EmailTransport.default.className', DebugTransport::class);
 
 require dirname(__DIR__) . '/config/bootstrap.php';
 

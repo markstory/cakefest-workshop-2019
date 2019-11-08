@@ -16,8 +16,10 @@ declare(strict_types=1);
  */
 namespace App;
 
+use App\Command\RedeliverCommand;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
+use Cake\Console\CommandCollection;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\MiddlewareQueue;

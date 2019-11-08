@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use RuntimeException;
 
 /**
  * Emails Model
@@ -92,5 +93,14 @@ class EmailsTable extends Table
         $rules->add($rules->existsIn(['ticket_id'], 'Tickets'));
 
         return $rules;
+    }
+
+    public function findForTicket(Query $query, array $options): Query 
+    {
+        if (empty($options[0])) {
+            throw new RuntimeException('Ticket id is required');
+        }
+
+        return $query->where(['Emails.ticket_id' => $options[0]]);
     }
 }
