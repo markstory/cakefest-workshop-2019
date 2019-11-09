@@ -122,4 +122,9 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+    public function findValidLogin(Query $query, array $options): Query
+    {
+        return $query;
+    }
 }

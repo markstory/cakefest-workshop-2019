@@ -19,10 +19,9 @@ class TicketsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Customers', 'Users'],
-        ];
-        $tickets = $this->paginate($this->Tickets);
+        $query = $this->Tickets->find()->contain(['Customers', 'Users']);
+        $query = $this->Authorization->applyScope($query);
+        $tickets = $this->paginate($query);
 
         $this->set(compact('tickets'));
     }
@@ -39,6 +38,7 @@ class TicketsController extends AppController
         $ticket = $this->Tickets->get($id, [
             'contain' => ['Customers', 'Users', 'Emails'],
         ]);
+        $this->Authorization->can($ticket, 'view');
 
         $this->set('ticket', $ticket);
     }
@@ -51,6 +51,8 @@ class TicketsController extends AppController
     public function add()
     {
         $ticket = $this->Tickets->newEmptyEntity();
+        $this->Authorization->can($ticket, 'create');
+
         if ($this->request->is('post')) {
             $ticket = $this->Tickets->patchEntity($ticket, $this->request->getData());
             if ($this->Tickets->save($ticket)) {
